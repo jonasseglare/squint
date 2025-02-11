@@ -383,7 +383,14 @@
                            x))"
                   {:repl true})]
       (is (str/includes? s "globalThis"))
-      (is (eq [1 2 3] (js/eval s))))))
+      (is (eq [1 2 3] (js/eval s)))))
+  (testing "Slack #clojure, October 9 2024: https://clojurians.slack.com/archives/C03S1KBA2/p1728481686954599"
+    (is (eq #js [#js [7 7] #js [8 8] #js [9 9]]
+            (jsv! '(vec (for [x (range 10)
+                              y (range 10)
+                              :when (= x y)
+                              :while (< 42 (* x y))]
+                          [x y])))))))
 
 (deftest Math-test
   (let [expr '(Math/sqrt 3.14)]

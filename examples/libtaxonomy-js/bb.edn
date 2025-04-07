@@ -4,11 +4,6 @@
   -dev {:depends [dev:squint dev:vite]}
   dev (run '-dev {:parallel true})
 
-  test:watch:squint (shell "npx squint watch --paths src/cljs test/cljs --output-dir public/test")
-  test:watch:vite (shell "npx vitest --config=vite.config.js")
-  -test:watch {:depends [test:watch:squint test:watch:vite]}
-  test:watch (run '-test:watch {:parallel true})
-
-  build:squint (shell "npx squint compile")
+  build:squint (shell "npx squint compile --repl true")
   build:vite (shell "npx vite --config vite.config.js build public")
   build {:depends [build:squint build:vite]}}}

@@ -1,4 +1,4 @@
 (ns libtaxonomy.my-component)
 
-(defn MyComponent []
+#_(defn MyComponent []
   :jsx [:div "MyComponent todo"])

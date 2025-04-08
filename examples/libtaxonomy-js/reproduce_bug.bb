@@ -15,9 +15,6 @@
   {:post [(not (fs/exists? problematic-target-file))]}
   (fs/delete-tree output-root))
 
-(defn get-compiled-file-set []
-  (into #{} (map str) (file-seq output-root)))
-
 (defn compile-using-watch []
   (let [proc (process/process {:err :inherit} "npx squint watch --repl true")]
     (Thread/sleep 1000)
@@ -76,12 +73,16 @@
 
 (defn pack-repro []
   (clean)
-  (let [dst (fs/create-temp-dir)]
-    (doseq [f (fs/list-dir ".")
-            :let [fname (fs/file-name f)]
-            :when (not (str/starts-with? fname "."))
-            :when (not= "node_modules" fname)]
-      (println fname))))
+  (let [dst-file (doto "repro.zip" (fs/delete-if-exists))
+        entries (vec (for [f (fs/list-dir ".")
+                           :let [fname (fs/file-name f)]
+                           :when (not (str/starts-with? fname "."))
+                           :when (not= "node_modules" fname)]
+                       f))]
+    (println "Make a zip file from these files:")
+    (doseq [f entries]
+      (println "*" (str f)))
+    (fs/zip dst-file entries)))
 
 (defn -main [& args]
   (case (first args)

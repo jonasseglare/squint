@@ -1,10 +1,12 @@
 {:tasks
  {clean (shell "rm -rf public/js/*")
-  dev:squint (shell "npx squint watch --repl true")
-  dev:vite (shell "npx vite --config=vite.config.js public")
-  -dev {:depends [dev:squint dev:vite]}
-  dev (run '-dev {:parallel true})
+  reproduce (shell "npx squint compile --repl")
+  ;;dev:squint (shell "npx squint watch --repl true")
+  ;;dev:vite (shell "npx vite --config=vite.config.js public")
+  ;;-dev {:depends [dev:squint dev:vite]}
+  ;;dev (run '-dev {:parallel true})
 
-  build:squint (shell "npx squint compile --repl true")
-  build:vite (shell "npx vite --config vite.config.js build public")
-  build {:depends [build:squint build:vite]}}}
+  ;;build:squint (shell "npx squint compile --repl true")
+  ;;build:vite (shell "npx vite --config vite.config.js build public")
+  ;;build {:depends [build:squint build:vite]}
+  }}

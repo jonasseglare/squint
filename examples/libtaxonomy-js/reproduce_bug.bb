@@ -68,7 +68,7 @@
 
 (defn reproduce-using-compile []
   (clean)
-  (process/shell "npx squint compile --repl")
+  (process/shell "npx squint compile --repl true")
   (report-result))
 
 (defn pack-repro []

@@ -74,10 +74,20 @@
   (process/shell "npx squint compile --repl")
   (report-result))
 
+(defn pack-repro []
+  (clean)
+  (let [dst (fs/create-temp-dir)]
+    (doseq [f (fs/list-dir ".")
+            :let [fname (fs/file-name f)]
+            :when (not (str/starts-with? fname "."))
+            :when (not= "node_modules" fname)]
+      (println fname))))
+
 (defn -main [& args]
   (case (first args)
     "reproduce-using-watch" (reproduce-using-watch)
     "reproduce-using-compile" (reproduce-using-compile)
+    "pack-repro" (pack-repro)
     nil))
 
 (apply -main *command-line-args*)

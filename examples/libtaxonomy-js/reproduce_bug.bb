@@ -73,3 +73,11 @@
   (clean)
   (process/shell "npx squint compile --repl")
   (report-result))
+
+(defn -main [& args]
+  (case (first args)
+    "reproduce-using-watch" (reproduce-using-watch)
+    "reproduce-using-compile" (reproduce-using-compile)
+    nil))
+
+(apply -main *command-line-args*)

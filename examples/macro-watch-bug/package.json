@@ -1,0 +1,10 @@
+{
+  "name": "squint-macro-bug",
+  "private": true,
+  "scripts": {
+    "dev": "squint watch"
+  },
+  "dependencies": {
+    "squint-cljs": "latest"
+  }
+}
